@@ -15,12 +15,14 @@ def main():
     lending_pool = get_lending_pool()
     approve_tx = approve_erc20(AMOUNT, lending_pool.address, erc20_address, account)
     print("Depositing...")
+
     tx = lending_pool.deposit(
         erc20_address, AMOUNT, account.address, 0, {"from": account}
     )
     tx.wait(1)
     print("Deposited!")
-    # ...how much?
+
+    # ...how much should we borrow?
     borrowable_eth, total_debt = get_borrowable_data(lending_pool, account)
     print("Let's borrow!")
     # DAI in terms of ETH
@@ -31,6 +33,7 @@ def main():
     # borrowable_eth -> borrowable_dai * 95%\
     print(f"We are going to borrow {amount_dai_to_borrow} DAI")
     # Now we will borrow!
+
     dai_address = config["networks"][network.show_active()]["dai_token"]
     borrow_tx = lending_pool.borrow(
         dai_address,
