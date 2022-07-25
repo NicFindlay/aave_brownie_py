@@ -109,6 +109,10 @@ def get_lending_pool():
     lending_pool_addresses_provider = interface.ILendingPoolAddressesProvider(
         config["networks"][network.show_active()]["lending_pool_addresses_provider"]
     )
+    # Get address from aave contract which gives address (incase they change)
     lending_pool_address = lending_pool_addresses_provider.getLendingPool()
+    # ABI
+    # ADDRESS (check)
+    # Interfaces comple down to ABI
     lending_pool = interface.ILendingPool(lending_pool_address)
     return lending_pool
